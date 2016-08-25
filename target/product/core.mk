@@ -31,7 +31,6 @@ PRODUCT_PACKAGES += \
     DownloadProviderUi \
     ExternalStorageProvider \
     FusedLocation \
-    InputDevices \
     KeyChain \
     Keyguard \
     ManagedProvisioning \
