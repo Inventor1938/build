@@ -74,5 +74,7 @@ $(SOONG_IN_MAKE):
 
 # Build an Android.mk listing all soong outputs as prebuilts
 $(SOONG_ANDROID_MK): $(SOONG_BOOTSTRAP) $(SOONG_VARIABLES) $(SOONG_IN_MAKE) FORCE
-	$(hide) $(SOONG) $(SOONG_BUILD_NINJA) $(NINJA_ARGS)
+	$(hide) $(SOONG) $(KATI) $(MAKEPARALLEL) $(NINJA_ARGS)
 
+$(KATI): $(SOONG_ANDROID_MK)
+$(MAKEPARALLEL): $(SOONG_ANDROID_MK)

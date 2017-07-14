@@ -482,8 +482,6 @@ BUILD_PLATFORM_ZIP := $(filter platform platform-java,$(MAKECMDGOALS))
 #
 # Tools that are prebuilts for TARGET_BUILD_APPS
 #
-prebuilt_sdk_tools := prebuilts/sdk/tools
-prebuilt_sdk_tools_bin := $(prebuilt_sdk_tools)/$(HOST_OS)/bin
 
 AIDL := $(HOST_OUT_EXECUTABLES)/aidl
 AAPT := $(HOST_OUT_EXECUTABLES)/aapt
@@ -497,23 +495,14 @@ BCC_COMPAT := $(HOST_OUT_EXECUTABLES)/bcc_compat
 DX := $(HOST_OUT_EXECUTABLES)/dx
 MAINDEXCLASSES := $(HOST_OUT_EXECUTABLES)/mainDexClasses
 
-# Always use prebuilts for ckati and makeparallel
-prebuilt_build_tools := prebuilts/build-tools
-ifeq ($(filter address,$(SANITIZE_HOST)),)
-prebuilt_build_tools_bin := $(prebuilt_build_tools)/$(HOST_PREBUILT_TAG)/bin
-else
-prebuilt_build_tools_bin := $(prebuilt_build_tools)/$(HOST_PREBUILT_TAG)/asan/bin
-endif
-ACP := $(prebuilt_build_tools_bin)/acp
-CKATI := $(prebuilt_build_tools_bin)/ckati
-IJAR := $(prebuilt_build_tools_bin)/ijar
-MAKEPARALLEL := $(prebuilt_build_tools_bin)/makeparallel
-ZIPTIME := $(prebuilt_build_tools_bin)/ziptime
-
 USE_PREBUILT_SDK_TOOLS_IN_PLACE := true
 
 # Override the definitions above for unbundled and PDK builds
 ifneq (,$(TARGET_BUILD_APPS)$(filter true,$(TARGET_BUILD_PDK)))
+prebuilt_sdk_tools := prebuilts/sdk/tools
+prebuilt_sdk_tools_bin := $(prebuilt_sdk_tools)/$(HOST_OS)/bin
+
+ACP := $(prebuilt_sdk_tools_bin)/acp
 AIDL := $(prebuilt_sdk_tools_bin)/aidl
 AAPT := $(prebuilt_sdk_tools_bin)/aapt
 AAPT2 := $(prebuilt_sdk_tools_bin)/aapt2
@@ -531,8 +520,6 @@ LLVM_RS_CC := $(prebuilt_sdk_tools_bin)/llvm-rs-cc
 BCC_COMPAT := $(prebuilt_sdk_tools_bin)/bcc_compat
 endif # TARGET_BUILD_PDK
 endif # TARGET_BUILD_APPS || TARGET_BUILD_PDK
-prebuilt_sdk_tools :=
-prebuilt_sdk_tools_bin :=
 
 
 # ---------------------------------------------------------------
