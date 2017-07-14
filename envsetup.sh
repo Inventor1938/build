@@ -313,10 +313,10 @@ function settitle()
         local apps=$TARGET_BUILD_APPS
         if [ -z "$PROMPT_COMMAND"  ]; then
             # No prompts
-            PROMPT_COMMAND="echo -ne \"\033]0;Inventor1938@buildbox: ${PWD}\007\""
+            PROMPT_COMMAND="echo -ne \"\033]0;${USER}@${HOSTNAME}: ${PWD}\007\""
         elif [ -z "$(echo $PROMPT_COMMAND | grep '033]0;')" ]; then
             # Prompts exist, but no hardstatus
-            PROMPT_COMMAND="echo -ne \"\033]0;Inventor1938@buildbox}: ${PWD}\007\";${PROMPT_COMMAND}"
+            PROMPT_COMMAND="echo -ne \"\033]0;${USER}@${HOSTNAME}: ${PWD}\007\";${PROMPT_COMMAND}"
         fi
         if [ ! -z "$ANDROID_PROMPT_PREFIX" ]; then
             PROMPT_COMMAND="$(echo $PROMPT_COMMAND | sed -e 's/$ANDROID_PROMPT_PREFIX //g')"
